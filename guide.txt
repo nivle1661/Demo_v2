@@ -1,0 +1,34 @@
+How To:
+1) Download Android Studio
+   https://developer.android.com/studio/index.html
+2) Launch the downloaded .exe and follow the setup wizard
+3) Open an existing Android Studio project -> Demo_v1
+
+4) Go to Tools (top bar) -> Android -> AVD Manager
+5) Press Create Virtual Device on the bottom right
+6) Select Nexus 6p -> (hit next)
+   API Level 25 -> 
+   Enter a custom name -> Finish
+7) Now you can run the app using Shift+f10 or pressing the play button on the toolbars at the top.
+   Select the newly created emulator as deployment target
+
+8) Press the camera button (top right) to select or take a picture to be used in the app
+9) Click and drag around the image to find a suitable background color for removal.
+   It won't be exact because it's hardcoded at the moment (don't go outside boundaries!)
+10) Press the play button for background removal
+    Once it's finished, an image will appear below with the background removed
+11) The square button dewarps the image based off the rotation and translation matrix extracted from the previous step
+12) The last button will save the fragments on the SD card and displays them in the next screen
+
+
+Inserting an image into Emulator:
+1) Make sure the emulator is turned on already
+2) Tools -> Android -> Android Device Monitor
+3) Click on the folder named sdcard
+4) On the top right there are 4 buttons (the two on the right are - and + symbols).
+   Select the second button (when hovering over it should say "Push a file onto the device")
+   Find the image you want to insert on your computer
+5) It may take time for the image to load into the emulator's gallery
+
+
+

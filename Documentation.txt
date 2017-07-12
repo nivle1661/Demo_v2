@@ -1,0 +1,27 @@
+1 - 76: A lot of imports, mostly from OpenCV library.
+82 - 124: Loading OpenCV library and declaring of variables that are used globally
+127 - 251: the onCreate method is run right when the app starts and sets up all buttons and their actions
+           This includes selection of background color
+
+254 - 399: functions for capturing an image/selecting an image from gallery from a dialog box
+
+401 - 528: A separate thread that runs which attempts to remove the background color and identify the fragments within the image
+    1) 407 - 423: Creates a binary map of the image 
+                  1's are placed where the pixel is within 30 units of background color's R, G, and B components
+                  0 otherwise
+    2) 426 - 435: Runs the OpenCV function findContours on the binary map
+    3) 437 - 444: Removes all contours that are less than a minimum area 
+                  (in this case .005 of the area of the whole image)
+    4) 446 - 451: The remaining contours are filled and used as a binary mask for the original image
+                  Here we check for a chessboard pattern within the masked image by running the function in lines 482 - 510
+    5) 482 - 510: An 8 by 8 chessboard pattern is searched by the OpenCV function findChessboardCorners.
+                  If identified, we set up a corresponding idealized list of world coordinates for the chessboard corners and use PnPRansac to find the pose of the camera, R and T.
+                  H = [R1, R2, T] establishes the homography from real world coordinates to pixel location and apply the inverse to the original image to get a dewarped version.
+                  If not identified, we exit and display dialog that we were unsuccessful
+
+    6) 453 - 472: Each contour is added to list of fragments iff the chessboard pattern has been identifed in the previous contours or it is not a chessboard pattern itself based off OpenCV function findChessboardCorners
+    7) 476 - 479: The actual dewarping occurs here using H^-1
+    8) 512 - 524: Displays unwarped image and dialog of the results 
+
+538 - 570: Fragments are saved on the SD card and their paths are sent to the next activity, view_gallery.java, for display (since there's no more space to display them).
+
